@@ -1,0 +1,16 @@
+{% for vhost in apache_vhosts %}
+
+<VirtualHost *:{{ vhost.port }}>
+	SetEnv APPLICATION_ENV "vagrant"
+	ServerName {{ vhost.servername }}
+	DocumentRoot {{ vhost.documentroot }}
+	{% if vhost.serveradmin is defined %}
+	ServerAdmin {{ vhost.serveradmin }}
+	{% endif %}
+	<Directory "{{ vhost.documentroot }}">
+		AllowOverride All
+		Require all granted
+	</Directory>
+</VirtualHost>
+
+{% endfor %}

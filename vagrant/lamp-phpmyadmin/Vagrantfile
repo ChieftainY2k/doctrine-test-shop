@@ -1,0 +1,30 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+
+    config.hostmanager.enabled = true
+    config.hostmanager.manage_host = true
+    config.hostmanager.ignore_private_ip = false
+    config.hostmanager.include_offline = true
+
+    config.vm.define "doctrine-demo-shop" do |node|
+
+        node.vm.box = "ubuntu/trusty32"
+        node.vm.network "forwarded_port", guest: 80, host: 8000
+        node.vm.hostname = "doctrine.dev"
+
+        node.vm.synced_folder "../../", "/var/www/mysite"
+        node.vm.provision :shell, path: "bootstrap.sh"
+
+        node.hostmanager.aliases = ["www.shop.dev","phpmyadmin.shop.dev"]
+
+    end
+
+
+
+end

@@ -1,0 +1,97 @@
+--- 
+- name: Prepare local machine
+  hosts: all
+  remote_user: vagrant
+  sudo: yes
+  vars:
+    mysql_port: 3306
+    mysql_root_db_pass: "root"
+    apache_vhosts:
+      - {servername: "shop.dev", documentroot: "/var/www/mysite/public", port: "80" }
+      - {servername: "phpmyadmin.shop.dev", documentroot: "/var/www/phpmyadmin", port: "80" }
+  tasks:
+    - name: setting hostname
+      hostname: name=doctrine.dev
+    - name: installing screen
+      apt: name=screen state=present
+    - name: installing tools
+      apt: name=mc,joe,git,multitail state=present
+    - name: installing apache2
+      apt: name=apache2 state=present
+    - name: installing sendmail
+      apt: name=sendmail state=present
+      
+    - name: installing mysql server
+      apt: name=mysql-server state=present
+    - name: installing python mysql client
+      apt: name=python-mysqldb state=present
+    - name: Start Mysql Service
+      service: name=mysql state=started enabled=true
+    - name: Copy my.cnf file with root EMPTY password 
+      template: src=templates/my.cnf.nopasswd.j2 dest=~/.my.cnf mode=0600 force=yes
+      notify: 
+      - restart mysql       
+    - name: Update mysql root password for all root accounts
+      mysql_user: name=root host={{ item }} password={{ mysql_root_db_pass }}
+      with_items:
+        - 127.0.0.1
+        - ::1
+        - localhost 
+    - name: Copy my.cnf file with root password 
+      template: src=templates/my.cnf.j2 dest=~/.my.cnf mode=0600 force=yes
+      notify: 
+      - restart mysql
+    - name: Create database 
+      mysql_db: name=mydatabase state=present
+    - name: Create mysql user
+      mysql_user: name=mydbuser password=mydbpassword priv=mydatabase.*:ALL state=present
+      
+    - name: installing mcrypt
+      apt: name=mcrypt state=present
+    - name: installing sqlite
+      apt: name=sqlite3 state=present
+    - name: installing php modules
+      apt: name=php5,php5-mysql,php5-mcrypt,php5-curl,php5-gd,php5-cli,php5-sqlite,php5-xdebug state=present
+  
+    - name: debconf for pma
+      debconf: name=phpmyadmin question='phpmyadmin/dbconfig-install' value='true' vtype='boolean'
+    - name: debconf for pma
+      debconf: name=phpmyadmin question='phpmyadmin/app-password-confirm' value='{{mysql_root_db_pass}}' vtype='password'
+    - name: debconf for pma
+      debconf: name=phpmyadmin question='phpmyadmin/mysql/admin-pass' value='{{mysql_root_db_pass}}' vtype='password'
+    - name: debconf for pma
+      debconf: name=phpmyadmin question='phpmyadmin/mysql/app-pass' value='{{mysql_root_db_pass}}' vtype='password'
+    - name: debconf for pma
+      debconf: name=phpmyadmin question='phpmyadmin/reconfigure-webserver' value='apache2' vtype='multiselect'
+    - name: installing pma
+      apt: name=phpmyadmin state=present
+    - name: configure phpmyadmin document root
+      file: path=/var/www/phpmyadmin src=/usr/share/phpmyadmin state=link
+      
+    - name: enable apache module rewrite
+      apache2_module: name=rewrite state=present 
+    - name: enable php mcrypt module
+      shell: php5enmod mcrypt
+
+    - name: apache2 configuring port 81
+      lineinfile: dest=/etc/apache2/ports.conf regexp="^Listen 81" line="Listen 81" state=present
+    
+    - name: apache2 creating virtualhosts
+      template: src=templates/vhosts.conf.j2 dest=/etc/apache2/sites-enabled/000-default.conf
+    - name: configuring PHP xdebug
+      template: src=templates/xdebug.ini.j2 dest=/etc/php5/mods-available/xdebug.ini
+
+#    - name: configuring php.ini
+#      ini_file: backup=yes dest=/etc/php5/apache2/php.ini follow=yes section=PHP  option=short_open_tag value=On 
+
+    - name: restarting apache
+      shell: service apache2 restart
+      
+      
+      
+  handlers:
+    - name: restart apache2
+      service: name=apache2 state=restarted
+    - name: restart mysql
+      service: name=mysql state=restarted
+      
