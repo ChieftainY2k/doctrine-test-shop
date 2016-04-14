@@ -22,7 +22,7 @@ echo Installing composer...
 curl -s https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
-# update vendors
-echo Updating vendor code...
+# Vendor libraries update
+echo Installing vendor code...
 cd /var/www/mysite
-composer update
+composer install
