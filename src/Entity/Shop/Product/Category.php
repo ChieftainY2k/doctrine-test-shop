@@ -1,10 +1,12 @@
 <?php
 namespace Entity\Shop\Product;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="category")
  */
 class Category
 {
@@ -28,8 +30,42 @@ class Category
     private $childrenCategories;
 
     /**
+     * @var string
      * @ORM\Column(type="string", nullable=false)
      */
     private $name;
+
+    /**
+     * Category constructor.
+     */
+    public function __construct()
+    {
+        $this->childrenCategories = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Category
+     */
+    public function getParent()
+    {
+        return $this->parentCategory;
+    }
+
+
+    /**
+     * @return Category[]
+     */
+    public function getChildren()
+    {
+        return $this->childrenCategories;
+    }
 
 }
