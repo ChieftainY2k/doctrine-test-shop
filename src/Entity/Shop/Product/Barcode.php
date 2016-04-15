@@ -11,11 +11,12 @@ class Barcode extends \Entity\Common
 {
 
     /**
-     * barcode value
-     * @var string
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * shop the product belongs to
+     * @var \Entity\Shop\Shop
+     * @ORM\ManyToOne(targetEntity="\Entity\Shop\Shop")
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id", nullable=false)
      */
-    private $value;
+    private $shop;
 
     /**
      * Product represented by this code
@@ -24,6 +25,14 @@ class Barcode extends \Entity\Common
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
     private $product;
+
+
+    /**
+     * barcode value
+     * @var string
+     * @ORM\Column(type="string", unique=true, nullable=false)
+     */
+    private $value;
 
     /**
      * Quantity of product items this code represents

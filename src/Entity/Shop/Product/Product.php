@@ -12,6 +12,15 @@ class Product extends \Entity\Common
 {
 
     /**
+     * shop the product belongs to
+     * @var \Entity\Shop\Shop
+     * @ORM\ManyToOne(targetEntity="\Entity\Shop\Shop")
+     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id", nullable=false)
+     */
+    private $shop;
+
+
+    /**
      * @var string
      * @ORM\Column(type="string", nullable=false)
      */

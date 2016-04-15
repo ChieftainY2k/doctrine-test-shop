@@ -20,14 +20,14 @@ class Common
     /**
      * Creation datetime
      * @var \DateTime
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",nullable=false)
      */
     protected $createdAt;
 
     /**
      * Update datetime
      * @var \DateTime
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",nullable=false)
      */
     protected $updatedAt;
 
