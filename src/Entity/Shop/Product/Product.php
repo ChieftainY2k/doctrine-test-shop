@@ -25,6 +25,20 @@ class Product
     private $name;
 
     /**
+     * @var Barcode[]
+     * @ORM\OneToMany(targetEntity="Barcode", mappedBy="Product", fetch="EXTRA_LAZY")
+     */
+    private $barcodes;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->barcodes = new ArrayCollection();
+    }
+
+    /**
      * @return string
      */
     public function getName()
