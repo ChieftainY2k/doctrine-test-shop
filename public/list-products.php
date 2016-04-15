@@ -15,12 +15,12 @@ function run()
 
     foreach ($products as $product) {
         /* @var \Entity\Shop\Product\Product $product */
-        echo "<hr>Product #".$product->getId()." , name =  " . $product->getName();
+        echo "<hr>Product #".$product->getId()." , name =  " . $product->getName()." , shop: ".$product->getShop()->getName()."";
         if (count($product->getBarcodes()))
         {
             foreach($product->getBarcodes() as $barcode)
             {
-                echo "<li>Barcode: #".$barcode->getId()." , value = " . $barcode->getValue(). "";
+                echo "<li>Barcode: , id #".$barcode->getId()." , value = " . $barcode->getValue(). "";
             }
         }
     }
