@@ -12,10 +12,10 @@ function run()
     $em = ApplicationConfiguration::getEntityManager();
     $em->getConnection()->getConfiguration()->setSQLLogger(new \Tools\DoctrineLogger());
 
-    $productId = 2;
+    $productId = !empty($_GET['id']) ? $_GET['id'] : 1;
 
     /** @var \Entity\Shop\Product\Product $product */
-    $product = $em->find("\Entity\Shop\Product\Product", $productId);
+    $product = $em->find(\Entity\Shop\Product\Product::class, $productId);
     if (!$product )
     {
         throw new Exception("Cannot find product.");

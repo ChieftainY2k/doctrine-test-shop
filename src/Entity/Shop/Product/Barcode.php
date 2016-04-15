@@ -56,6 +56,14 @@ class Barcode
     private $quantity = 1;
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * set the code text
      * @param string $value
      */
