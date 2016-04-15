@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping AS ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="category")
+ * @ORM\Table(name="shop_categories")
  */
 class Category
 {
@@ -25,7 +25,9 @@ class Category
     private $parentCategory;
 
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parentCategory")
+     * @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/tutorials/extra-lazy-associations.html
+     * 
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parentCategory", fetch="EXTRA_LAZY")
      */
     private $childrenCategories;
 
@@ -54,7 +56,7 @@ class Category
     /**
      * @return Category
      */
-    public function getParent()
+    public function getParentCategory()
     {
         return $this->parentCategory;
     }
@@ -63,7 +65,7 @@ class Category
     /**
      * @return Category[]
      */
-    public function getChildren()
+    public function getChildrenCategories()
     {
         return $this->childrenCategories;
     }

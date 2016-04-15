@@ -5,10 +5,9 @@ require "../bootstrap.php";
 $em = ApplicationConfiguration::getEntityManager();
 //print_r($em);
 
-$logger = new \Doctrine\DBAL\Logging\EchoSQLLogger();
-$em->getConnection()
-    ->getConfiguration()
-    ->setSQLLogger($logger);
+//enable logger
+//$em->getConnection()->getConfiguration()->setSQLLogger(new \Doctrine\DBAL\Logging\EchoSQLLogger());
+$em->getConnection()->getConfiguration()->setSQLLogger(new \Tools\DoctrineLogger());
 
 $categoryRepository = $em->getRepository('\Entity\Shop\Product\Category');
 $categories = $categoryRepository->findAll();
@@ -17,18 +16,17 @@ $categories = $categoryRepository->findAll();
 foreach ($categories as $category) {
     /* @var \Entity\Shop\Product\Category $category */
     echo "<hr>Name: " . $category->getName();
-    $children = $category->getChildren();
-    $parent = $category->getParent();
-    if (!empty($parent)) {
-        echo "<br>parent: " . $parent->getName();
-    }
+    $children = $category->getChildrenCategories();
+    $parent = $category->getParentCategory();
+    echo "<br>parent: ";
+    echo (!empty($parent)) ? $parent->getName() : "-";
 
-    if (!empty($children)) {
+    if ($children->count()) {
         foreach ($children as $child) {
-
-            /* @var \Entity\Shop\Product\Category $child */
             echo "<br>child: " . $child->getName();
         }
+    } else {
+        echo "<br>child: -";
     }
 
     //\Doctrine\Common\Util\Debug::dump($children);
