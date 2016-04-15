@@ -26,7 +26,7 @@ class Product
 
     /**
      * @var Barcode[]
-     * @ORM\OneToMany(targetEntity="Barcode", mappedBy="Product", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="Barcode", mappedBy="product", fetch="EXTRA_LAZY", cascade={"persist", "remove"})
      */
     private $barcodes;
 
@@ -39,11 +39,46 @@ class Product
     }
 
     /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
      * @return string
      */
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Add a barcode to the product
+     * @param Barcode $barcode
+     */
+    public function addBarcode(Barcode $barcode)
+    {
+        $barcode->setProduct($this);
+        $this->barcodes->add($barcode);
+    }
+
+    /**
+     * Get all barcodes
+     * @return ArrayCollection|Barcode[]
+     */
+    public function getBarcodes()
+    {
+        return $this->barcodes;
     }
 
 }

@@ -19,25 +19,29 @@ class Barcode
     private $id;
 
     /**
+     * barcode value
      * @var string
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", unique=true, nullable=false)
      */
-    private $code;
+    private $value;
 
     /**
+     * Product represented by this code
      * @var Product
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="barcodes")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
      */
     private $product;
 
     /**
+     * Creation datetime
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
+     * Update datetime
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
@@ -52,11 +56,20 @@ class Barcode
     private $quantity = 1;
 
     /**
+     * set the code text
+     * @param string $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
      * @return string
      */
-    public function getCode()
+    public function getValue()
     {
-        return $this->code;
+        return $this->value;
     }
 
     /**
@@ -91,6 +104,22 @@ class Barcode
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param Product $product
+     */
+    public function setProduct($product)
+    {
+        $this->product = $product;
     }
 
 
