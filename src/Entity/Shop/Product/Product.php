@@ -8,17 +8,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Entity
  * @ORM\Table(name="shop_products")
  */
-class Product extends \Entity\Common
+class Product extends \Entity\CommonWithShop
 {
-
-    /**
-     * shop the product belongs to
-     * @var \Entity\Shop\Shop
-     * @ORM\ManyToOne(targetEntity="\Entity\Shop\Shop")
-     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id", nullable=false)
-     */
-    private $shop;
-
 
     /**
      * @var string

@@ -7,16 +7,9 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Entity
  * @ORM\Table(name="shop_products_barcodes")
  */
-class Barcode extends \Entity\Common
+class Barcode extends \Entity\CommonWithShop
 {
 
-    /**
-     * shop the product belongs to
-     * @var \Entity\Shop\Shop
-     * @ORM\ManyToOne(targetEntity="\Entity\Shop\Shop")
-     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id", nullable=false)
-     */
-    private $shop;
 
     /**
      * Product represented by this code

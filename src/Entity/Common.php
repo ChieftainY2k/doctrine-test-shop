@@ -43,6 +43,7 @@ class Common
      * Update timestamps on save
      *
      * @ORM\PrePersist
+     * @ORM\PreUpdate
      */
     public function updateTimestamps()
     {

@@ -1,13 +1,23 @@
 <?php
 
-require "../bootstrap.php";
+function run()
+{
+    require "../bootstrap.php";
 
-$em = ApplicationConfiguration::getEntityManager();
-$em->getConnection()->getConfiguration()->setSQLLogger(new \Tools\DoctrineLogger());
+    $em = ApplicationConfiguration::getEntityManager();
+    $em->getConnection()->getConfiguration()->setSQLLogger(new \Tools\DoctrineLogger());
 
-$product = new \Entity\Shop\Product\Product();
-$product->setName("Product ".date("Ymd-His"));
-$em->persist($product);
-$em->flush();
+    $shop = $em->find(\Entity\Shop\Shop::class, 1);
 
-echo "product #".$product->getId()." added.";
+    $product = new \Entity\Shop\Product\Product();
+    $product->setShop($shop);
+    $product->setName("Product " . date("Ymd-His"));
+    $em->persist($product);
+    $em->flush();
+
+    echo "product #" . $product->getId() . " added.";
+
+}
+
+run();
+
