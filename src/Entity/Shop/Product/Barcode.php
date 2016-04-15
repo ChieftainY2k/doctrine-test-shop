@@ -8,15 +8,8 @@ use Doctrine\ORM\Mapping AS ORM;
  * @ORM\Table(name="shop_products_barcodes")
  * @ORM\HasLifecycleCallbacks
  */
-class Barcode
+class Barcode extends \Entity\Common
 {
-
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
     /**
      * barcode value
@@ -34,34 +27,12 @@ class Barcode
     private $product;
 
     /**
-     * Creation datetime
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * Update datetime
-     * @var \DateTime
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
-
-    /**
      * Quantity of product items this code represents
      *
      * @var int
      * @ORM\Column(type="smallint", nullable=false, options={"unsigned":true, "default":1} )
      */
     private $quantity = 1;
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * set the code text
@@ -78,40 +49,6 @@ class Barcode
     public function getValue()
     {
         return $this->value;
-    }
-
-    /**
-     * Update timestamps on save
-     *
-     * @ORM\PrePersist
-     */
-    public function updateTimestamps()
-    {
-        $this->setUpdatedAt(new \DateTime('now'));
-
-        if (is_null($this->getCreatedAt())) {
-            $this->setCreatedAt(new \DateTime('now'));
-        }
-    }
-
-    public function setCreatedAt(\DateTime $date)
-    {
-        $this->createdAt = $date;
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function setUpdatedAt(\DateTime $date)
-    {
-        $this->updatedAt = $date;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
