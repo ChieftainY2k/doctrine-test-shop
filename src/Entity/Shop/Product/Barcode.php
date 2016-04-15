@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping AS ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="shop_products_barcodes")
- * @ORM\HasLifecycleCallbacks
  */
 class Barcode extends \Entity\Common
 {

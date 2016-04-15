@@ -26,7 +26,7 @@ class DoctrineLogger extends EchoSQLLogger
 
     public function __destruct()
     {
-        echo "<hr><div style='background:#ddd; padding:5px; margin:5px; border: solid 1px black;'><pre>";
+        echo "<hr><div style='background:#ddd; padding:3px; border: solid 1px black; overflow: auto'><pre>";
         //print_r($this->queries);
         //echo var_export($this->queries,true);
         echo json_encode($this->queries,JSON_PRETTY_PRINT);

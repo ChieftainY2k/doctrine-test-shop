@@ -3,6 +3,10 @@ namespace Entity;
 
 use Doctrine\ORM\Mapping AS ORM;
 
+/**
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\MappedSuperclass
+ */
 class Common
 {
 
@@ -49,21 +53,33 @@ class Common
         }
     }
 
+    /**
+     * @param \DateTime $date
+     */
     public function setCreatedAt(\DateTime $date)
     {
         $this->createdAt = $date;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * @param \DateTime $date
+     */
     public function setUpdatedAt(\DateTime $date)
     {
         $this->updatedAt = $date;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;

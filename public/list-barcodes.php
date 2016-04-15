@@ -9,6 +9,8 @@ function run()
     $em = ApplicationConfiguration::getEntityManager();
     $em->getConnection()->getConfiguration()->setSQLLogger(new \Tools\DoctrineLogger());
 
+    $productId = !empty($_GET['id']) ? $_GET['id'] : 1;
+
     //Query builder
     $queryBuilder = $em->createQueryBuilder();
 
@@ -16,10 +18,10 @@ function run()
     $queryBuilder->select('b')
         ->from(\Entity\Shop\Product\Barcode::class, 'b')
         //->from(\Entity\Shop\Product\Product::class, 'p')
-        ->where('b.product = ?1')
+        ->where('b.product = :productId')
         //->add("where",$queryBuilder->expr()->eq("b.product",1))
         ->orderBy('b.value', 'DESC')
-        ->setParameter(1, 1)
+        ->setParameter("productId", $productId)
         //->setFirstResult($offset = 2)
         //->setMaxResults($limit = 1)
     ;
