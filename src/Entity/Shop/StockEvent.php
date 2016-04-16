@@ -73,7 +73,7 @@ class StockEvent extends \Entity\Common
      */
     public function setType($type)
     {
-        if (!in_array(self::TYPE_PRODUCT_PURCHASED,self::TYPE_PRODUCT_SOLD))
+        if (!in_array($type,array(self::TYPE_PRODUCT_PURCHASED,self::TYPE_PRODUCT_SOLD)))
         {
             throw new \Exception("Invalid type");
         }
