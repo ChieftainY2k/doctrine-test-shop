@@ -3,13 +3,18 @@ namespace Entity\Shop\Product;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping AS ORM;
+use Entity\Traits\ShopReferenceTrait;
+use Entity\Traits\TimestampableTrait;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="shop_products")
+ * @ORM\HasLifecycleCallbacks
  */
-class Product extends \Entity\CommonWithShop
+class Product extends \Entity\Common
 {
+    use TimestampableTrait;
+    use ShopReferenceTrait;
 
     /**
      * @var string

@@ -16,8 +16,7 @@ function run()
 
     /** @var \Entity\Shop\Product\Product $product */
     $product = $em->find(\Entity\Shop\Product\Product::class, $productId);
-    if (!$product )
-    {
+    if (!$product) {
         throw new Exception("Cannot find product.");
     }
 
@@ -25,6 +24,7 @@ function run()
 
     //creater new barcode
     $barcode = new \Entity\Shop\Product\Barcode();
+    $barcode->setShop($product->getShop());
     $barcode->setValue(date("Ymd-His"));
 
     //attach barcode
@@ -40,10 +40,8 @@ function run()
     //$em->persist($barcode);
     $em->flush();
 
-    echo "<hr>Barcode " . $barcode->getValue() . " added.";
+    echo "<hr>Barcode #" . $barcode->getId() . " with value " . $barcode->getValue() . " added to product #" . $product->getId();
 
 }
-
-;
 
 run();

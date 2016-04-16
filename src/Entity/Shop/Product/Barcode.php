@@ -2,14 +2,18 @@
 namespace Entity\Shop\Product;
 
 use Doctrine\ORM\Mapping AS ORM;
+use Entity\Traits\ShopReferenceTrait;
+use Entity\Traits\TimestampableTrait;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="shop_products_barcodes")
+ * @ORM\HasLifecycleCallbacks
  */
-class Barcode extends \Entity\CommonWithShop
+class Barcode extends \Entity\Common
 {
-
+    use TimestampableTrait;
+    use ShopReferenceTrait;
 
     /**
      * Product represented by this code

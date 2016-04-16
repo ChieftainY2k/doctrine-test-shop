@@ -1,13 +1,15 @@
 <?php
-namespace Entity;
+namespace Entity\Traits;
 
 use Doctrine\ORM\Mapping AS ORM;
 
 /**
+ * Trait which defines reference to a shop as parent
+ *
  * @ORM\HasLifecycleCallbacks
  * @ORM\MappedSuperclass
  */
-class CommonWithShop extends Common
+trait ShopReferenceTrait
 {
 
     /**
@@ -19,8 +21,8 @@ class CommonWithShop extends Common
     private $shop;
 
     /**
-     * get parent shop 
-     * @return Shop\Shop
+     * get parent shop
+     * @return \Entity\Shop\Shop
      */
     public function getShop()
     {
@@ -29,7 +31,7 @@ class CommonWithShop extends Common
 
     /**
      * set parent shop
-     * @param Shop\Shop $shop
+     * @return \Entity\Shop\Shop
      */
     public function setShop($shop)
     {
