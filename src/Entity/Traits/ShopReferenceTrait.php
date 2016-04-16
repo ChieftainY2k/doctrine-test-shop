@@ -2,6 +2,7 @@
 namespace Entity\Traits;
 
 use Doctrine\ORM\Mapping AS ORM;
+use Entity\Shop\Shop;
 
 /**
  * Trait which defines reference to a shop as parent
@@ -14,7 +15,7 @@ trait ShopReferenceTrait
 
     /**
      * shop the product belongs to
-     * @var \Entity\Shop\Shop
+     * @var Shop
      * @ORM\ManyToOne(targetEntity="\Entity\Shop\Shop")
      * @ORM\JoinColumn(name="shop_id", referencedColumnName="id", nullable=false)
      */
@@ -22,7 +23,7 @@ trait ShopReferenceTrait
 
     /**
      * get parent shop
-     * @return \Entity\Shop\Shop
+     * @return Shop
      */
     public function getShop()
     {
@@ -31,9 +32,9 @@ trait ShopReferenceTrait
 
     /**
      * set parent shop
-     * @return \Entity\Shop\Shop
+     * @param \Entity\Shop\Shop
      */
-    public function setShop($shop)
+    public function setShop(Shop $shop)
     {
         $this->shop = $shop;
     }
