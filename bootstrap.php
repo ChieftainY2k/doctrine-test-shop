@@ -18,6 +18,8 @@ class ApplicationConfiguration
 
         $cache = null;
         //$cache = new \Doctrine\Common\Cache\FilesystemCache("./cache/");
+        //$cache = new \Doctrine\Common\Cache\ApcuCache();
+        //$cache = new \Doctrine\Common\Cache\ArrayCache();
 
         $useSimpleAnnotationReader = false;
         $config = Setup::createAnnotationMetadataConfiguration(

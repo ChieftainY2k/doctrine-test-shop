@@ -16,4 +16,23 @@ class ProductRepository extends EntityRepository
     {
         parent::__construct($em, $class);
     }
+
+    /**
+     * Use cache
+     * @return array
+     */
+    public function findAll()
+    {
+        //$result = parent::findAll();
+        //b = $this->getEntityManager()->createQueryBuilder();
+
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('select p from \Entity\Shop\Product\Product p');
+        $query->useResultCache(true);
+        $query->setResultCacheLifetime(3600);
+        $result = $query->getResult();
+
+        return $result;
+    }
+
 }
