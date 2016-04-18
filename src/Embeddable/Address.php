@@ -3,7 +3,9 @@ namespace Embeddable;
 
 use Doctrine\ORM\Mapping AS ORM;
 
-/** @ORM\Embeddable */
+/**
+ * @ORM\Embeddable
+ */
 class Address
 {
     /** @ORM\Column(type = "string") */
@@ -17,7 +19,7 @@ class Address
 
     /** @ORM\Column(type = "string") */
     private $country;
-    
+
     /**
      * @return mixed
      */
@@ -81,5 +83,6 @@ class Address
     {
         $this->country = $country;
     }
+
 
 }

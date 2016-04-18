@@ -7,7 +7,7 @@ use Entity\Traits\ShopReferenceTrait;
 use Entity\Traits\TimestampableTrait;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\Repository\ProductRepository")
  * @ORM\Table(name="shop_products")
  * @ORM\HasLifecycleCallbacks
  */
@@ -21,6 +21,12 @@ class Product extends \Entity\Common
      * @ORM\Column(type="string", nullable=false)
      */
     private $name;
+
+    /**
+     * @var int
+     * @ORM\Column(type="smallint", nullable=false)
+     */
+    private $viewCount;
 
     /**
      * @var Barcode[]
@@ -69,6 +75,22 @@ class Product extends \Entity\Common
     public function getBarcodes()
     {
         return $this->barcodes;
+    }
+
+    /**
+     * @return string
+     */
+    public function getViewCount()
+    {
+        return $this->viewCount;
+    }
+
+    /**
+     * @param int $viewCount
+     */
+    public function setViewCount($viewCount)
+    {
+        $this->viewCount = $viewCount;
     }
 
 }

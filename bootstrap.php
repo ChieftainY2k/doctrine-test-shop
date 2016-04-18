@@ -4,7 +4,7 @@ use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
 error_reporting(E_ALL);
-ini_set("display_errors",1);
+ini_set("display_errors", 1);
 
 require_once __DIR__ . "/vendor/autoload.php";
 
@@ -15,9 +15,20 @@ class ApplicationConfiguration
         // Create a simple "default" Doctrine ORM configuration for Annotations
         $isDevMode = true;
         $proxyDir = null;
+
         $cache = null;
+        //$cache = new \Doctrine\Common\Cache\FilesystemCache("./cache/");
+
         $useSimpleAnnotationReader = false;
-        $config = Setup::createAnnotationMetadataConfiguration(array(__DIR__ . "/src"), $isDevMode, $proxyDir, $cache, $useSimpleAnnotationReader);
+        $config = Setup::createAnnotationMetadataConfiguration(
+            array(
+                __DIR__ . "/src"
+            ),
+            $isDevMode,
+            $proxyDir,
+            $cache,
+            $useSimpleAnnotationReader
+        );
 
 
         // or if you prefer yaml or XML
