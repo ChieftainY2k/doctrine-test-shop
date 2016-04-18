@@ -17,10 +17,14 @@ function run()
         /* @var \Entity\Shop\User\Customer $customer */
         echo "<br>Customer #".$customer->getId()." , 
             name =  " . $customer->getName()."  
-            ,country = ".$customer->getAddress()->getCountry()."
-            ,city = ".$customer->getAddress()->getCity()."
-            ,street = ".$customer->getAddress()->getStreet()."
-            ,code = ".$customer->getAddress()->getPostalCode()."
+            ,rcountry = ".$customer->getResidenceAddress()->getCountry()."
+            ,rcity = ".$customer->getResidenceAddress()->getCity()."
+            ,rstreet = ".$customer->getResidenceAddress()->getStreet()."
+            ,rcode = ".$customer->getResidenceAddress()->getPostalCode()."
+            ,bcountry = ".$customer->getBillingAddress()->getCountry()."
+            ,bcity = ".$customer->getBillingAddress()->getCity()."
+            ,bstreet = ".$customer->getBillingAddress()->getStreet()."
+            ,bcode = ".$customer->getBillingAddress()->getPostalCode()."
         ";
     }
 

@@ -26,16 +26,23 @@ class Customer extends \Entity\Common
     /**
      * Customer address
      * @var Address
-     * @ORM\Embedded(class = "Embeddable\Address")
+     * @ORM\Embedded(class = "Embeddable\Address", columnPrefix = "residenceAddress_")
      */
-    private $address;
+    private $residenceAddress;
+
+    /**
+     * Customer address
+     * @var Address
+     * @ORM\Embedded(class = "Embeddable\Address", columnPrefix = "billingAddress_")
+     */
+    private $billingAddress;
 
     /**
      * Customer constructor.
      */
     public function __construct()
     {
-        $this->address = new Address();
+        $this->residenceAddress = new Address();
     }
 
     /**
@@ -57,17 +64,33 @@ class Customer extends \Entity\Common
     /**
      * @return Address
      */
-    public function getAddress()
+    public function getResidenceAddress()
     {
-        return $this->address;
+        return $this->residenceAddress;
     }
 
     /**
-     * @param Address $address
+     * @param Address $residenceAddress
      */
-    public function setAddress(Address $address)
+    public function setResidenceAddress(Address $residenceAddress)
     {
-        $this->address = $address;
+        $this->residenceAddress = $residenceAddress;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getBillingAddress()
+    {
+        return $this->billingAddress;
+    }
+
+    /**
+     * @param Address $billingAddress
+     */
+    public function setBillingAddress(Address $billingAddress)
+    {
+        $this->billingAddress = $billingAddress;
     }
 
 
