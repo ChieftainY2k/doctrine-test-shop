@@ -20,7 +20,7 @@
       apt: name=apache2 state=present
     - name: installing sendmail
       apt: name=sendmail state=present
-      
+
     - name: installing mysql server
       apt: name=mysql-server state=present
     - name: installing python mysql client

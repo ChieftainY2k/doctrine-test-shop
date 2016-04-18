@@ -6,7 +6,7 @@
 * vagrant ssh
 * cd /var/www/mysite
 * composer install
-* vendor/bin/doctrine orm:schema-tool:create --dump-sql
+* vendor/bin/doctrine orm:schema-tool:create --force
 
 
 **VM local website**
