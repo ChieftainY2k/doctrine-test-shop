@@ -26,7 +26,7 @@ class Product extends \Entity\Common
      * @var int
      * @ORM\Column(type="smallint", nullable=false)
      */
-    private $viewCount;
+    private $viewCount=0;
 
     /**
      * @var Barcode[]
