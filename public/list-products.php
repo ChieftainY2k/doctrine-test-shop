@@ -20,12 +20,22 @@ function run()
     foreach ($products as $product) {
 
         /* @var \Entity\Shop\Product\Product $product */
-        echo "<hr>Product #" . $product->getId() . " , name =  " . $product->getName() . " , viewCount = " . $product->getViewCount() . ", shop: " . $product->getShop()->getName() . "";
+        echo "<hr>
+            Product #" . $product->getId() . " 
+            , name =  " . $product->getName() . " 
+            , viewCount = " . $product->getViewCount() . "
+            , shop: " . $product->getShop()->getName() . "
+            , createadAt: " . date("Y-m-d H:i:s",$product->getCreatedAt()->getTimestamp()) . "
+        ";
         if (count($product->getBarcodes())) {
 
             foreach ($product->getBarcodes() as $barcode) {
 
-                echo "<li>Barcode: , id #" . $barcode->getId() . " , value = " . $barcode->getValue() . "";
+                echo "<li>
+                    Barcode: , id #" . $barcode->getId() . " 
+                    , value = " . $barcode->getValue() . "
+                    , createadAt: " . date("Y-m-d H:i:s",$barcode->getCreatedAt()->getTimestamp()) . "
+                ";
 
             }
         }
