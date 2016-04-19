@@ -20,7 +20,12 @@ class ApplicationConfiguration
         //$cache = new \Doctrine\Common\Cache\FilesystemCache("./cache/");
         //$cache = new \Doctrine\Common\Cache\ApcuCache();
         //$cache = new \Doctrine\Common\Cache\ArrayCache();
-        //$cache = new \Doctrine\Common\Cache\MemcachedCache();
+
+        $memcached = new Memcached();
+        $memcached->addserver("localhost",11211);
+        $cache = new \Doctrine\Common\Cache\MemcachedCache();
+        $cache->setMemcached($memcached);
+
 
         $useSimpleAnnotationReader = false;
         $config = Setup::createAnnotationMetadataConfiguration(

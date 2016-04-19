@@ -25,7 +25,7 @@ function run()
     //creater new barcode
     $barcode = new \Entity\Shop\Product\Barcode();
     $barcode->setShop($product->getShop());
-    $barcode->setValue(date("Ymd-His"));
+    $barcode->setValue("Barcode ". date("Ymd-His"));
 
     //attach barcode
     $product->addBarcode($barcode);

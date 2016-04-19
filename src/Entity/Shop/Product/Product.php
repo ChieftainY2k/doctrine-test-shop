@@ -30,7 +30,7 @@ class Product extends \Entity\Common
 
     /**
      * @var Barcode[]
-     * @ORM\OneToMany(targetEntity="Barcode", mappedBy="product", fetch="EXTRA_LAZY", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Barcode", mappedBy="product", fetch="EAGER", cascade={"persist", "remove"})
      */
     private $barcodes;
 

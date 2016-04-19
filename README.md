@@ -6,7 +6,10 @@
 * vagrant ssh
 * cd /var/www/mysite
 * composer install
-* vendor/bin/doctrine orm:schema-tool:create --force
+* create scheme: 
+  vendor/bin/doctrine orm:schema-tool:create --force
+* clear cache: 
+  vendor/bin/doctrine orm:clear-cache:metadata && vendor/bin/doctrine orm:clear-cache:result && vendor/bin/doctrine orm:clear-cache:query
 
 
 **VM local website**

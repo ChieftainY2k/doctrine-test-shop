@@ -2,6 +2,7 @@
 namespace Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\Common\Collections\Selectable;
@@ -21,15 +22,18 @@ class ProductRepository extends EntityRepository
      * Use cache
      * @return array
      */
-    public function findAll()
+    public function findAllOptimizedAndCached()
     {
-        //$result = parent::findAll();
-        //b = $this->getEntityManager()->createQueryBuilder();
-
         $em = $this->getEntityManager();
-        $query = $em->createQuery('select p from \Entity\Shop\Product\Product p');
+        $query = $em->createQuery('
+          select p,b,s 
+            from \Entity\Shop\Product\Product p
+            join p.barcodes b
+            join p.shop s
+          ');
         $query->useResultCache(true);
-        $query->setResultCacheLifetime(3600);
+        $query->setResultCacheLifetime(10);
+
         $result = $query->getResult();
 
         return $result;

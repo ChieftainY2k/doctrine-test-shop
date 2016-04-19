@@ -27,20 +27,25 @@ function run()
     ;
 
     $query = $queryBuilder->getQuery();
+    $query->useResultCache(true,10);
+    
+    //use cache
+    //$query->useQueryCache(true);
+    //$query->setResultCacheLifetime(10);
 
     //Dump vars
     //echo "<hr>DQL query = " . $queryBuilder->getDql();
-
     //echo "<hr>SQL query = " . $query->getSQL();
-
     //$result = $query->getArrayResult();
     //echo "<hr><pre>"; print_r($result); echo "</pre>";
 
     $barcodes = $query->getResult();
     //\Doctrine\Common\Util\Debug::dump($result);
     foreach ($barcodes as $barcode) {
+
         /** @var \Entity\Shop\Product\Barcode $barcode */
         echo "<br>barcode #" . $barcode->getId() . ", value = " . $barcode->getValue();
+
     }
 
 }
